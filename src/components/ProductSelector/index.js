@@ -117,14 +117,11 @@ function ProductSelector({ product, setModal }) {
     const dispatch = useDispatch()
 
     const[noOfProducts, setNoOfProducts] = useState(0)
-    const[arr, setArr] = useState([])
 
-    const [selectedProducts, setSelectedproducts] = useState([])
     const[checked, setChecked] = useState(
         new Array(product.variants.length).fill(false)
     )
     
-    const[selectAl, setSelectAll] = useState(false)
     const[ifSelectedAll, setIfSelectedAll] = useState(false)
     
 
@@ -134,22 +131,21 @@ function ProductSelector({ product, setModal }) {
         checked.map((item, index) => {
             if(item === true){
                 selectedProds.push({name: product.title, variants:product.variants[index]})
-            } 
+            }             
         })
 
         setNoOfProducts(noOfProducts + 1)
-        arr.push(selectedProds)
 
-        setSelectedproducts(selectedProds)
         dispatch(addProducts(selectedProds))
         setModal(false)
     }
    
     const handleOnChange = (position) => {
+        handleCheck()
         const updatedCheckedState = checked.map((item, index) =>
           index === position ? !item : item
         );
-    
+        
         setChecked(updatedCheckedState); 
       };
     
@@ -159,11 +155,11 @@ function ProductSelector({ product, setModal }) {
         checked.map((item) => {
            updSt.push(true)
         })
-        setSelectAll(true)
         setIfSelectedAll(true)
         setChecked(updSt);
         
     };
+
 
     const unSelectAll = () => {
         let updSt = []
@@ -171,7 +167,6 @@ function ProductSelector({ product, setModal }) {
         checked.map((item) => {
            updSt.push(false)
         })
-        setSelectAll(false)
         setIfSelectedAll(false)
         setChecked(updSt);   
     };
@@ -184,10 +179,23 @@ function ProductSelector({ product, setModal }) {
         }
     }
 
+    const handleCheck = () => {
+        let All = false
+
+        const found = checked.filter(che => che == true)
+        if(found.length>0){
+            All = true
+        } else {
+            All = false
+        }
+        setIfSelectedAll(All)
+    }
+
+
     return (
         <Container>
             <div className='title'>
-                <Checkbox checked={selectAl} handleSelect={handleSelectAll}/>
+                <Checkbox checked={ifSelectedAll} handleSelect={handleSelectAll}/>
                 <img src={product.image.src} />
                 <label >{product.title}</label>
             </div>
