@@ -97,7 +97,7 @@ function Picker() {
                 <Products>
                     {
                         variants.variants.map((item, index) => (
-                            <AddProduct item={item} step={index+1}/>
+                            <AddProduct key={index} item={item} step={index+1}/>
                         ))
                     }
                 </Products>

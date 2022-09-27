@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 
 const icon1 = "/assets/icons/icon1.svg"
@@ -247,7 +247,7 @@ function AddProduct({item, step}) {
                             >
                                 <img src={icon1} alt=""/>
                                 <div>{variant.variants.title}</div>
-                                <img onClick={(index)=>removeVariant(index)} style={{height: "18px", cursor:"pointer"}} src={close} alt=""/>
+                                <img onClick={()=>removeVariant(index)} style={{height: "18px", cursor:"pointer"}} src={close} alt=""/>
                             </div>
                     )):""
                 }
