@@ -96,9 +96,9 @@ function Picker() {
                 </div>
                 <Products>
                     {
-                        variants.variants.map((item, index) => (
+                        variants.variants.length>0?variants.variants.map((item, index) => (
                             <AddProduct key={index} item={item} step={index+1}/>
-                        ))
+                        )):"No products added"
                     }
                 </Products>
                 <Button onClick={()=>modalOn()}>Add Product</Button>
