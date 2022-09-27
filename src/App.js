@@ -1,25 +1,29 @@
-import logo from './logo.svg';
+import axios from 'axios';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import './App.css';
+import Picker from './pages/ProductPicker';
+import { getProducts } from './redux/products/actions';
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    useEffect(() => {
+        getData()
+    }, [])
+
+    const dispatch = useDispatch()
+    const getData = async() => {
+        let data = await axios.get("https://stageapibc.monkcommerce.app/admin/shop/product?search=Fo&page=1")
+        dispatch(getProducts(data.data))
+    }
+
+
+    return (
+        <div className="App">
+          <Picker />
+        </div>
+    );
 }
 
 export default App;
